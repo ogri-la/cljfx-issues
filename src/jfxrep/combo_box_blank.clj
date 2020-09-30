@@ -1,4 +1,4 @@
-(ns jfxrep.core
+(ns jfxrep.combo-box-blank
   (:require
    [clojure.tools.namespace.repl :as tn :refer [refresh]]
    [cljfx
@@ -9,8 +9,7 @@
 
 (def app-state (atom {:list-of-maps [{:label "dummy value one" :value "foo"}
                                      {:label "dummy value two" :value "bar"}
-                                     {:label "dummy value three" :value "foo"}
-                                     ]
+                                     {:label "dummy value three" :value "foo"}]
                       :index 0}))
 
 (defn select-newest!

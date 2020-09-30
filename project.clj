@@ -4,13 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/tools.namespace "1.0.0"] ;; reload code
+                 ;; reload code with `(clojure.tools.namespace.repl/refresh)`
+                 [org.clojure/tools.namespace "1.0.0"] 
                  [cljfx "1.7.8"]
-                 [cljfx/css "1.1.0"]
+                 [cljfx/css "1.1.0"]]
 
-                 
-                 ]
-
-
-  :main jfxrep.core
-  )
+  :main jfxrep.combo-box-blank)
