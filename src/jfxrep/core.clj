@@ -4,6 +4,9 @@
    [cljfx
     [api :as fx]]
    [cljfx.css :as css]))
+
+(comment "adding a new item to a combo-box blanks out it's selected balue")
+
 (def app-state (atom {:list-of-maps [{:label "dummy value one" :value "foo"}
                                      {:label "dummy value two" :value "bar"}
                                      {:label "dummy value three" :value "foo"}
@@ -30,6 +33,7 @@
 ;;
 
 (defn dropdown-one
+  "the most simple and straight forward way"
   [{:keys [fx/context]}]
   (let [app-state (fx/sub-val context get :app-state)
         map-list (:list-of-maps app-state)
@@ -44,6 +48,8 @@
      :items (mapv :label map-list)}))
 
 (defn dropdown-two
+  "more complex but with unnecessary :button-cell and :cell-factory.
+  This actually works for me in my app but fails on a mac as :button-cell seems to occasionally get bypassed resulting in the label being the stringified map."
   [{:keys [fx/context]}]
   (let [app-state (fx/sub-val context get :app-state)
         map-list (:list-of-maps app-state)
@@ -61,6 +67,7 @@
      :items map-list}))
 
 (defn dropdown-three
+  "most simple again, but with two subscriptions instead of one"
   [{:keys [fx/context]}]
   (let [map-list (fx/sub-val context get-in [:app-state :list-of-maps])
         index (fx/sub-val context get-in [:app-state :index])
@@ -81,11 +88,10 @@
    :padding 10
    :spacing 10
    :children [{:fx/type :button :text "add" :on-action (fn [_] (add-map!))}
-              {:fx/type :button :text "rm" :on-action (fn [_] (rm-map!))}
+              {:fx/type :button :text "remove" :on-action (fn [_] (rm-map!))}
               {:fx/type dropdown-one}
               {:fx/type dropdown-two}
-              {:fx/type dropdown-three}
-              ]})
+              {:fx/type dropdown-three}]})
 
 (defn gui
   [{:keys [fx/context]}]
@@ -110,7 +116,6 @@
                                fx/wrap-context-desc
                                (fx/wrap-map-desc (fn [_] {:fx/type gui})))
                   :opts {:fx.opt/type->lifecycle #(or (fx/keyword->lifecycle %)
-                                                      (fx/fn->lifecycle-with-context %))})
-        ]
-    (fx/mount-renderer gui-state renderer))
-  nil)
+                                                      (fx/fn->lifecycle-with-context %))})]
+    (fx/mount-renderer gui-state renderer)
+    renderer))
