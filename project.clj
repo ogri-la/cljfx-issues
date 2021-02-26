@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  ;; reload code with `(clojure.tools.namespace.repl/refresh)`
                  [org.clojure/tools.namespace "1.0.0"] 
-                 [cljfx "1.7.8"]
+                 [cljfx "1.7.13"]
                  [cljfx/css "1.1.0"]]
 
   :main jfxrep.new-tabs)
