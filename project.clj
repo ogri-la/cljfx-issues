@@ -9,4 +9,4 @@
                  [cljfx "1.7.8"]
                  [cljfx/css "1.1.0"]]
 
-  :main jfxrep.combo-box-blank)
+  :main jfxrep.new-tabs)
